@@ -12,8 +12,17 @@ const Home = () => {
 	const navigate = useNavigate();
 
 	const handleExitButtonClick = () => {
-		logout();
-		navigate('/signin');
+		setIsLoading(true);
+		try {
+			logout();
+			enqueueSnackbar('Desconectado com sucesso!', { variant: 'success' });
+			navigate('/signin');
+		} catch (error) {
+			const { message } = error;
+			enqueueSnackbar(message, { variant: 'error' });
+		} finally {
+			setIsLoading(false);
+		}
 	}
 
     return (
