@@ -42,6 +42,7 @@ Aplicação console deve ser iniciada antes de executar o frontend. O banco de d
 ### Instalação e execução
 
     - Clonar o repositório
+    - Caso não possua a dll do SQLite, utilizar a da pasta libs. Basta copiar para a mesma pasta do executável e descompactar
     - Abrir o TaskManagerServer.dpr, através do RAD Studio
     - Compilar e executar
 
@@ -59,3 +60,6 @@ Aplicação console deve ser iniciada antes de executar o frontend. O banco de d
     - Abrir a pasta client, através do VS Code
     - Criar o arquivo .env, baseado no .env.example substituindo o valor da chave pela url base do backend (por exemplo: http://localhost:3000)
     - executar o comando: npm run dev
+
+* Autor: Marcio Roberto Leal Ferreira
+* E-mail: marcio.sistemas@gmail.com
