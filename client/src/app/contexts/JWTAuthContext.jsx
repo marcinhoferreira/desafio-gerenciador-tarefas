@@ -2,12 +2,14 @@ import { createContext, useEffect, useReducer } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { api } from '../services';
 
+// Estado inicial do reducer
 const initialState = {
     user: null,
     isInitialised: false,
     isAuthenticated: false,
 };
 
+// Função para validar o token. Retorna falso, se o token for inválido ou estiver expirado
 const isValidToken = (accessToken) => {
     if (!accessToken) return false;
     const decodedToken = jwtDecode(accessToken);
@@ -15,6 +17,7 @@ const isValidToken = (accessToken) => {
     return decodedToken.exp > currentTime;
 };
 
+// Armazena as informações do token, na sessão do navegador
 const setSession = (tokenType, accessToken) => {
     if (accessToken) {
         localStorage.setItem('tokenType', tokenType);
@@ -27,6 +30,7 @@ const setSession = (tokenType, accessToken) => {
     }
 };
 
+// Cria o reducer, que será utilizado para as operações de login, register e logout
 const reducer = (state, action) => {
     switch (action.type) {
         case 'INIT': {
@@ -50,6 +54,7 @@ const reducer = (state, action) => {
     }
 };
 
+// Contexto de autenticação, para compartilhar as funções login, logout e register
 const AuthContext = createContext({
     ...initialState,
     method: 'JWT',
@@ -58,6 +63,7 @@ const AuthContext = createContext({
     register: () => Promise.resolve(),
 });
 
+// Provedor de autenticação da aplicação
 export const AuthProvider = ({ children }) => {
     const [ state, dispatch ] = useReducer(reducer, initialState);
 
@@ -80,19 +86,15 @@ export const AuthProvider = ({ children }) => {
 
         dispatch({ type: 'LOGIN', payload: { user: user } });
     }
-
+    
     const register = async (username, email, password) => {
         const { data } = await api.post('/Security/SignUp', {
-            username,
-            email,
-            password,
+            username: username,
+            email: email,
+            password: password,
         });
 
-        const { accessToken } = data;
-
-        setSession(accessToken);
-
-        const user = await profile();
+        const { user } = data.data;
 
         dispatch({ type: 'REGISTER', payload: { user: user } });
     };

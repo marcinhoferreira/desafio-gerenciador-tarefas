@@ -28,8 +28,8 @@ implementation
 
 uses
    System.DateUtils,
-   JOSE.Core.JWT,
-   JOSE.Core.Builder,
+   JOSE.Core.JWT, JOSE.Core.Builder,
+   DataSet.Serialize,
    TaskManagerServer.Model.Conexao.Factory;
 
 { TSecurityModel }
@@ -64,11 +64,7 @@ begin
                      Query.FieldByName('active').AsBoolean := True;
                      Query.Post;
 
-                     ARetorno.AddPair('id', Query.FieldByName('id').AsString);
-                     ARetorno.AddPair('name', Query.FieldByName('name').AsString);
-                     ARetorno.AddPair('email', Query.FieldByName('email').AsString);
-                     ARetorno.AddPair('password', Query.FieldByName('password').AsString);
-                     ARetorno.AddPair('active', Query.FieldByName('active').AsBoolean);
+                     ARetorno := Query.ToJSONObject();
 
                      Result.AddPair('status', 'success');
                      Result.AddPair('message', 'User registered successfully');
@@ -176,11 +172,8 @@ begin
             begin
                ARetorno := TJSONObject.Create;
                try
-                  ARetorno.AddPair('id', Query.FieldByName('id').AsString);
-                  ARetorno.AddPair('name', Query.FieldByName('name').AsString);
-                  ARetorno.AddPair('email', Query.FieldByName('email').AsString);
-                  ARetorno.AddPair('password', Query.FieldByName('password').AsString);
-                  ARetorno.AddPair('active', Query.FieldByName('active').AsBoolean);
+                  ARetorno := Query.ToJSONObject();
+
                   Result.AddPair('status', 'success');
                   Result.AddPair('message', 'User registered successfully');
                   Result.AddPair('data', ARetorno);

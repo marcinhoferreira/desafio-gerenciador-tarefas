@@ -5,7 +5,9 @@ import JwtLogin from './views/sessions/JwtLogin';
 import Home from './views/home/Home';
 import TaskList from './views/task/TaskList';
 import TaskForm from './views/task/TaskForm';
+import JwtRegister from './views/sessions/JwtRegister';
 
+// Aqui, serão definidas todas as rotas da aplicação
 const routes = [
     {
         element: (
@@ -18,6 +20,7 @@ const routes = [
         ],
     },
     { path: '/signIn', element: <JwtLogin /> },
+    { path: '/signUp', element: <JwtRegister /> },
     { path: '/task-list', element: <TaskList /> },
     { path: '/task', element: <TaskForm /> },
     { path: '/task/:id', element: <TaskForm /> },

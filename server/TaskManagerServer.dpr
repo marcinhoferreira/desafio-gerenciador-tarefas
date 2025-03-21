@@ -1,3 +1,8 @@
+{
+  Esta aplicação console irá instanciar a API de Gerenciamento de Tarefas.
+  Author: Marcio Roberto Leal Ferreira
+
+}
 program TaskManagerServer;
 
 {$APPTYPE CONSOLE}

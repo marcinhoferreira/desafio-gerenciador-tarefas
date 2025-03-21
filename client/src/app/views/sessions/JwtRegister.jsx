@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { Button, Card, Grid2, TextField, Typography, useTheme } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
-import { Card, Grid2, TextField, Typography, useTheme } from '@mui/material';
-import { Button } from '@mui/material';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { FlexBox } from '../../components/FlexBox';
 import { useSnackbar } from 'notistack';
+import { FlexBox } from '../../components/FlexBox';
 
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Digite o seu nome de usuário'),
     password: Yup.string().required('Digite a sua senha')
 });
 
-const JwtLogin = () => {
+const JwtRegister = () => {
     const theme = useTheme();
-    const { login } = useAuth();
+    const { register } = useAuth();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const [ isLoading, setIsLoading ] = useState(false);
@@ -23,9 +22,9 @@ const JwtLogin = () => {
     const handleFormSubmit = async (values) => {
         setIsLoading(true);
         try {
-            await login(values.username, values.password);
-            enqueueSnackbar('Conectado com sucesso', { variant: 'success' });
-            navigate('/');
+            await register(values.username, values.email, values.password);
+            enqueueSnackbar('Cadastrado com sucesso', { variant: 'success' });
+            navigate('/signin');
         } catch (error) {
             const{ message } = error;
             enqueueSnackbar(message, { variant: 'error' });
@@ -54,9 +53,7 @@ const JwtLogin = () => {
                 item
                 xs={12}
                 md={8}
-                lg={4}
-                justifyContent={'center'}
-                alignItems={'center'}
+                lg={4}                    
             >
                 <Card
                     sx={
@@ -69,11 +66,12 @@ const JwtLogin = () => {
                         color='primary'
                         align='center'
                     >
-                        Acesso ao Aplicativo
+                        Cadastre-se
                     </Typography>
                     <Formik
                         initialValues={{
                             username: '',
+                            email: '',
                             password: '',
                         }}
                         validationSchema={validationSchema}
@@ -84,9 +82,9 @@ const JwtLogin = () => {
                                 onSubmit={handleSubmit}
                             >
                                 <FlexBox
-                                    marginTop={'1rem'}
-                                    marginBottom={'1rem'}
-                                    flexDirection={'column'}
+                                    marginTop={ '1rem' }
+                                    marginBottom={ '1rem' }
+                                    flexDirection={ 'column' }
                                     justifyContent='center'
                                     alignItems='center'
                                     gap={'1rem'}
@@ -98,6 +96,17 @@ const JwtLogin = () => {
                                         variant='outlined'
                                         placeholder='Digite o seu nome de usuário'
                                         value={values.username}
+                                        onBlur={handleBlur}
+                                        onChange={handleChange}
+                                        fullWidth
+                                    />
+                                    <TextField
+                                        type='email'
+                                        name='email'
+                                        size='small'
+                                        variant='outlined'
+                                        placeholder='Digite o seu email'
+                                        value={values.email}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
                                         fullWidth
@@ -121,7 +130,7 @@ const JwtLogin = () => {
                                     loading={isLoading}
                                     loadingIndicator='Aguarde...'
                                 >
-                                    Entrar
+                                    Cadastrar
                                 </Button>
                             </form>
                         )}
@@ -130,15 +139,15 @@ const JwtLogin = () => {
                         marginTop={ '1rem' }
                     >
                         <Typography>
-                            Não possui uma conta?
+                            Já possui cadastro?
                         </Typography>
                         <NavLink
                             style={
                                 { color: theme.palette.primary.main, marginLeft: 5 }
                             }
-                            to='/signUp'
+                            to='/signin'
                         >
-                            Cadastre-se
+                            Acessar
                         </NavLink>
                     </FlexBox>
                 </Card>
@@ -147,4 +156,4 @@ const JwtLogin = () => {
     );
 }
 
-export default JwtLogin;
+export default JwtRegister;

@@ -42,6 +42,7 @@ Aplicação console deve ser iniciada antes de executar o frontend. O banco de d
 ##### Instalação e execução
 
     Clonar o repositório
+    Executar o boss install, para instalar as dependências
     Caso não possua a dll do SQLite, utilizar a da pasta libs. Basta copiar para a mesma pasta do executável e descompactar
     Abrir o TaskManagerServer.dpr, através do RAD Studio
     Compilar e executar
