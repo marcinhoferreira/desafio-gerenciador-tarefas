@@ -1,10 +1,8 @@
-# desafio-gerenciador-tarefas
+# Gerenciador de Lista de Tarefas
 
 Gerenciamento de Tarefas do Usuário
 
 Aplicação criada para solucionar o desafio de uma lista de tarefas, assim definida:
-
-# Lista de Tarefas
 
 ## Definição do problema
 
@@ -28,3 +26,33 @@ Criar uma aplicação simples de lista de tarefas (To-Do List) com controle de u
     - Criar componentes reutilizáveis.
     - Utilizar React Hooks (useState, useEffect).
     - Código deve estar comentado.
+
+## Backend
+
+Aplicação console deve ser iniciada antes de executar o frontend. O banco de dados é criado automaticamente, ao estabelecer uma conexão
+
+### Tecnologias utilizadas
+
+    - RAD Studio 12 Athens
+    - FireDAC
+    - Boss
+    - Horse
+
+### Instalação
+
+    - Clonar o repositório
+    - Abrir o TaskManagerServer.dpr, através do RAD Studio
+    - Compilar e executar
+
+## Frontend
+
+    - ReactJs
+    - MUI
+    - JWT-Decode
+    - Axios
+
+### Instalação
+    - Clonar o repositório
+    - Executar o comando: npm install
+    - Abrir a pasta client, através do VS Code
+    - No VS Code, 
