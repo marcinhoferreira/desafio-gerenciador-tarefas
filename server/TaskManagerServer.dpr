@@ -1,7 +1,6 @@
-{
-  Esta aplicação console irá instanciar a API de Gerenciamento de Tarefas.
+﻿{
+  API de Gerenciamento de Tarefas. Aplicação criada em formato console application
   Author: Marcio Roberto Leal Ferreira
-
 }
 program TaskManagerServer;
 
