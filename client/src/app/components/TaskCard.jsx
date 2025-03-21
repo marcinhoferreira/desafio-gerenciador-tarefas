@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { FlexBox } from './FlexBox';
 
+// Cria uma exibição em card, da tarefa
 const TaskCard = ({
     task
 }) => {    
@@ -39,6 +40,7 @@ const TaskCard = ({
                 marginTop={ '1rem' }
                 gap={ '0.5rem' }
             >
+                {/* Prioridade da tarefa LOW e HIGH */}
                 <FormControl>
                     <FormLabel>
                         Prioridade
@@ -62,6 +64,7 @@ const TaskCard = ({
                         />
                     </RadioGroup>
                 </FormControl>
+                {/* Status da tarefa: PENDING, INPROGRESS, COMPLETED */}
                 <FormControl>
                     <FormLabel>
                         Status da Tarefa

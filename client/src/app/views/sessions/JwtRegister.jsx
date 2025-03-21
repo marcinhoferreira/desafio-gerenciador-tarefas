@@ -8,8 +8,14 @@ import { useSnackbar } from 'notistack';
 import { FlexBox } from '../../components/FlexBox';
 
 const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Digite o seu nome de usuário'),
-    password: Yup.string().required('Digite a sua senha')
+    username: Yup.string()
+        .required('É obrigatório informar o seu nome de usuário!'),
+    password: Yup.string()
+        .min(6, 'A senha deve ter, no mínimo, 6 caracteres')
+        .required('É obrigatório informar uma senha!'),
+    email: Yup.string()
+        .email('Endereço de e-mail inválido!')
+        .required('É obrigatório informar um e-mail!'),
 });
 
 const JwtRegister = () => {
@@ -77,7 +83,7 @@ const JwtRegister = () => {
                         validationSchema={validationSchema}
                         onSubmit={handleFormSubmit}
                     >
-                        {({ values, handleBlur, handleChange, handleSubmit }) => (
+                        {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
                             <form
                                 onSubmit={handleSubmit}
                             >
@@ -98,6 +104,8 @@ const JwtRegister = () => {
                                         value={values.username}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
+                                        helperText={touched.username && errors.username}
+                                        error={Boolean(errors.username && touched.username)}
                                         fullWidth
                                     />
                                     <TextField
@@ -109,6 +117,8 @@ const JwtRegister = () => {
                                         value={values.email}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
+                                        helperText={touched.email && errors.email}
+                                        error={Boolean(errors.email && touched.email)}
                                         fullWidth
                                     />
                                     <TextField
@@ -120,6 +130,8 @@ const JwtRegister = () => {
                                         value={values.password}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
+                                        helperText={touched.password && errors.password}
+                                        error={Boolean(errors.password && touched.password)}
                                         fullWidth
                                     />
                                 </FlexBox>

@@ -1,12 +1,22 @@
-import { Box, Button, Card, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material';
-import { Formik } from 'formik';
 import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Box, Button, Card, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import { FlexBox } from '../../components/FlexBox';
 import { useSnackbar } from 'notistack';
 import { api } from '../../services';
 import useAuth from '../../hooks/useAuth';
 
+// Esquema de validação das entradas de dados
+const validationSchema = Yup.object().shape({
+    title: Yup.string()
+        .required('É obrigatório informar o t´´itulo da tarefa!'),
+    description: Yup.string()
+        .required('É obrigatório informar a descrição da tarefa!'),
+});
+
+// Função de renderização do form de task
 const TaskForm = () => {
     const { id } = useParams();
     const location = useLocation();
@@ -16,7 +26,9 @@ const TaskForm = () => {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
 
+    // Funcção que submete os dados do formulário à api
     const handleFormSubmit = async (values) => {
+        // Desabilita controles
         setIsLoading(true);
         try {
             let response = null;
@@ -34,9 +46,12 @@ const TaskForm = () => {
                 }
             }
         } catch (error) {
-            const { message } = error.response.data;
+            // Extrai a mensagem de erro
+            const { message } = error;
+            // Exibe a mensagem de erro, em toast
             enqueueSnackbar(message, { variant: 'error' });
         } finally {
+            // Habilita controles
             setIsLoading(false);
         }
     }
@@ -66,6 +81,7 @@ const TaskForm = () => {
                         status: state.data?.status || 'PENDING'
                     }
                 }
+                validationSchema={validationSchema}
                 onSubmit={handleFormSubmit}
             >
                 {
@@ -88,12 +104,13 @@ const TaskForm = () => {
                                     label='Título'
                                     placeholder='Digite o título da tarefa'
                                     value={values.title}
+                                    onBlur={handleBlur}
                                     onChange={handleChange}
                                     InputLabelProps={
                                         { shrink: true }
                                     }
-                                    error={errors.title && touched.title}
-                                    helperText={errors.title}
+                                    helperText={touched.title && errors.title}
+                                    error={Boolean(errors.title && touched.title)}
                                     fullWidth
                                 />
                                 <TextField
@@ -108,10 +125,13 @@ const TaskForm = () => {
                                     value={values.description}
                                     multiline
                                     rows={3}
+                                    onBlur={handleBlur}
                                     onChange={handleChange}
                                     InputLabelProps={
                                         { shrink: true }
                                     }
+                                    helperText={touched.description && errors.description}
+                                    error={Boolean(errors.description && touched.description)}
                                     fullWidth
                                 />
                                 <FlexBox

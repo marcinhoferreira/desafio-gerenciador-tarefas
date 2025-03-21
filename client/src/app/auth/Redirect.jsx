@@ -1,7 +1,8 @@
 import { Navigate, useLocation } from 'react-router-dom';
 
+// Função utilizada para redirecionar o app para a rota
 const Redirect = () => {
-    let location = useLocation();
+    const location = useLocation();
     const from = location.state?.from || '/home';
     return <Navigate to={from} />;
 };

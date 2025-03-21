@@ -8,28 +8,42 @@ import * as Yup from 'yup';
 import { FlexBox } from '../../components/FlexBox';
 import { useSnackbar } from 'notistack';
 
+// Esquema de validação dos dados digitados
 const validationSchema = Yup.object().shape({
     username: Yup.string().required('Digite o seu nome de usuário'),
     password: Yup.string().required('Digite a sua senha')
 });
 
+// Função de exibição da tela de login
 const JwtLogin = () => {
     const theme = useTheme();
+    // Extrai a função de login, do hook autenticação
     const { login } = useAuth();
+    // Função de navegação entre as rotas do app
     const navigate = useNavigate();
+    // Função de exibição de mensagens em toast
     const { enqueueSnackbar } = useSnackbar();
+    // Variável de estado, utilizada para desabilitar e habilitar controles, na tela
     const [ isLoading, setIsLoading ] = useState(false);
 
+    // Função que submete os dados do formulário à função de login
     const handleFormSubmit = async (values) => {
+        // Desabilita os controles da tela
         setIsLoading(true);
         try {
+            // Executa o login
             await login(values.username, values.password);
+            // Exibe mensagem de sucesso, em toast
             enqueueSnackbar('Conectado com sucesso', { variant: 'success' });
+            // Redireciona para a rota inicial do app
             navigate('/');
         } catch (error) {
+            // Extrai a mensagem de erro
             const{ message } = error;
+            // Exibe a mensagem de erro, em toast
             enqueueSnackbar(message, { variant: 'error' });
         } finally {
+            // Habilita os controles da tela
             setIsLoading(false);
         }
     }
@@ -79,7 +93,7 @@ const JwtLogin = () => {
                         validationSchema={validationSchema}
                         onSubmit={handleFormSubmit}
                     >
-                        {({ values, handleBlur, handleChange, handleSubmit }) => (
+                        {({ values, errors, touched, handleBlur, handleChange, handleSubmit }) => (
                             <form
                                 onSubmit={handleSubmit}
                             >
@@ -100,6 +114,8 @@ const JwtLogin = () => {
                                         value={values.username}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
+                                        helperText={touched.username && errors.username}
+                                        error={Boolean(errors.username && touched.username)}
                                         fullWidth
                                     />
                                     <TextField
@@ -111,6 +127,8 @@ const JwtLogin = () => {
                                         value={values.password}
                                         onBlur={handleBlur}
                                         onChange={handleChange}
+                                        helperText={touched.password && errors.password}
+                                        error={Boolean(errors.password && touched.password)}
                                         fullWidth
                                     />
                                 </FlexBox>
