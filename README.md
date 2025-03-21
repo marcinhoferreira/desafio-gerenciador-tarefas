@@ -33,18 +33,18 @@ Aplicação console deve ser iniciada antes de executar o frontend. O banco de d
 
 ##### Tecnologias utilizadas
 
-    - RAD Studio 12 Athens
-    - FireDAC
-        - SQLite
-    - Boss
-    - Horse
+    RAD Studio 12 Athens
+    FireDAC
+    SQLite
+    Boss
+    Horse
 
 ##### Instalação e execução
 
-    - Clonar o repositório
-    - Caso não possua a dll do SQLite, utilizar a da pasta libs. Basta copiar para a mesma pasta do executável e descompactar
-    - Abrir o TaskManagerServer.dpr, através do RAD Studio
-    - Compilar e executar
+    Clonar o repositório
+    Caso não possua a dll do SQLite, utilizar a da pasta libs. Basta copiar para a mesma pasta do executável e descompactar
+    Abrir o TaskManagerServer.dpr, através do RAD Studio
+    Compilar e executar
     
     IMPORTANTE: O servidor está escutando a porta 3000. Está fixo no código. Caso esta porta não esteja disponível, deve indicar outra, no código fonte do controller principal.
 
@@ -54,18 +54,18 @@ Aplicação web, tipo SPA, implementada em ReactJs
 
 #### Tecnologias utilizadas
 
-    - ReactJs
-    - MUI
-    - JWT-Decode
-    - Axios
+    ReactJs
+    MUI
+    JWT-Decode
+    Axios
 
 #### Instalação e execução
 
-    - Clonar o repositório
-    - Executar o comando: npm install
-    - Abrir a pasta client, através do VS Code
-    - Criar o arquivo .env, baseado no .env.example substituindo o valor da chave pela url base do backend (por exemplo: http://localhost:3000)
-    - executar o comando: npm run dev
+    Clonar o repositório
+    Executar o comando: npm install
+    Abrir a pasta client, através do VS Code
+    Criar o arquivo .env, baseado no .env.example substituindo o valor da chave pela url base do backend (por exemplo: http://localhost:3000)
+    executar o comando: npm run dev
 
 * Autor: Marcio Roberto Leal Ferreira
 * E-mail: marcio.sistemas@gmail.com
